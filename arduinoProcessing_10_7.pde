@@ -23,7 +23,7 @@ int vidaMaquina=500;
 float pisoAmp=0.25;
 float a=0;
 float moverPerdiste=0;
-int tiempo=11;
+int tiempo=1000;
 int estadoZapateo=0;
 int contadorTitilar;
 int queSonido=1;
@@ -71,9 +71,9 @@ int empezarJuego, marcaDeTiempoInicio;
 PFont miFuente;
 void setup()
 {
-  size(1440, 900);
+  //size(1440, 900);
   fullScreen(2);
-  //miFuente=createFont("Calculator.ttf", 48);
+  miFuente=createFont("Calculator.ttf", 48);
   textFont(miFuente);
   amp = new Amplitude(this);
   volumenSonido= new Amplitude(this);
@@ -135,7 +135,7 @@ void draw() {
 
 
   if (estado=="inicio"&& yaEligio) {
-    myPort.write('5');
+   myPort.write('5');
     sonido[queSonido].stop();
     estado="tutorial";
     base.play();
