@@ -9,17 +9,34 @@ int salida = 19;
 int objetos = A1;   // Circulo Grande
 int objetos2 = A2;  // Circulo Mediano
 int objetos3 = A3;  // Circulo Chico
+int pulsadorCuchillo=2;
+int estadoPulsador=0;
+int estadoCuchillo=0;
+int bombaDeAgua=10;
 int umbral = 80;
 int estadoCirculoChico;
 int estadoCirculoMediano;
 int estadoCirculoGrande;
-int estadoGeneral=1;
+
 void setup() {
   Serial.begin(9600);
+  pinMode(pulsadorCuchillo,INPUT);
+  pinMode(bombaDeAgua,OUTPUT);
 }
 
 void loop() {
+  estadoPulsador=digitalRead(pulsadorCuchillo);
+  if(estadoPulsador==LOW){
+  estadoCuchillo=1;
+  }
+  else{estadoCuchillo=0;}
 
+if(estadoPulsador==LOW){
+  digitalWrite(bombaDeAgua,HIGH);
+  }
+ else if(estadoPulsador==HIGH){
+  digitalWrite(bombaDeAgua,LOW);
+  }
   int lecturaObjetos = analogRead(objetos);
   int lecturaObjetos2 = analogRead(objetos2);
   int lecturaObjetos3 = analogRead(objetos3);
@@ -54,21 +71,16 @@ void loop() {
     estadoCirculoGrande = 3;
   }
 
-  if (estadoCirculoGrande == 3 && estadoCirculoMediano == 3 || estadoCirculoChico == 3 && estadoCirculoMediano == 3  ||estadoCirculoChico == 3 && estadoCirculoGrande == 3) {
-    estadoGeneral = 3;
-  } else if (estadoCirculoGrande == 2 && estadoCirculoMediano == 2  || estadoCirculoChico == 2 && estadoCirculoMediano == 2  ||estadoCirculoChico == 2 && estadoCirculoGrande == 2) {
-    estadoGeneral = 2;
-  } else if (estadoCirculoGrande == 1 && estadoCirculoMediano == 1 || estadoCirculoChico == 1 && estadoCirculoMediano == 1 ||estadoCirculoChico == 1 && estadoCirculoGrande == 1) {
-    estadoGeneral = 1;
-  }
-  else(estadoGeneral=0);
-//Serial.write(estadoGeneral);
+
 Serial.print(estadoCirculoChico);
 Serial.print(",");
 Serial.print(estadoCirculoMediano);
 Serial.print(",");
 Serial.print(estadoCirculoGrande);
 Serial.print(",");
+Serial.print(estadoCuchillo);
+Serial.print(",");
+
 Serial.println();
 
 delay(100);
